@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 app.get("/api/products", async (req, res) => {
     // const sql = "SELECT * FROM products";
     // aca traere la conexion para tirarle sentencias
-    const [rows, fields] = await connection.query("SELECT * FROM products");
+    const [rows, fields] = await connection.query("SELECT * FROM productos");
 
     // console.log(rows);
 
@@ -52,7 +52,7 @@ app.get("/api/products/:id", async (req, res) => {
 
     const id = req.params.id; // Obtendo el valor que paso por la URL
 
-    const [rows] = await connection.query("SELECT * FROM products where products.id = ?", [id]);
+    const [rows] = await connection.query("SELECT * FROM products where productos.id = ?", [id]);
 
     // console.log(rows);
 
