@@ -114,7 +114,7 @@ function restarDelCarrito(cardProducto)
 
 //--- [EVENTOS] Asociacion del evento "click" a los botones "+" y "-" con la funcion manejadora del evento ---//
 window.addEventListener("DOMContentLoaded", () => 
-{
+{ 
     const botonesSumar = document.querySelectorAll(".btn-sumar-a-carrito");
 
     const botonesRestar = document.querySelectorAll(".btn-restar-a-carrito");
