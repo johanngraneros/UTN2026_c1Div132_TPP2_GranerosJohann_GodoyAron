@@ -16,6 +16,9 @@ const PORT = environments.port;
 // Middlewares
 app.use(cors()); // Middleware basico para permitir todas las solicitudes
 
+app.use(express.static("public"));  // Permite que el navegador acceda a los archivos de la carpeta public
+// Ejemplo: public/imagenes/revolutionCase.png se accede como /imagenes/revolutionCase.png
+
 // Middleware logger para analizar todas las solicitudes por consola (tener el historial del consumo de nuestra Api REST en la consola)
 app.use((req, res, next) => {
     let fecha = new Date();
@@ -56,8 +59,8 @@ app.get("/api/products/:id", async (req, res) => {
 
     // console.log(rows);
 
-    res.status(200).json({
-        payload: rows
+    res.status(200).json({  
+        payload: rows // Enviamos dentro de payload el listado de productos obtenido desde MySQL
     });
 });
 
