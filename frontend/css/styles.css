@@ -8,7 +8,15 @@
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-optical-sizing: auto;
-    background-color: #161616;
+}
+
+nav, header {
+    background-color: #0a0a0b;
+}
+
+main {
+    background-color: #151719;
+    
 }
 
 ul {
@@ -23,10 +31,19 @@ li {
 header {
     display: flex;
     padding: 10px 20px;
-    box-shadow: 0 2px 5px #0000001a;
-    background-color: #000000;
 }
 
+.navbar-gym .nav-link  {
+    margin-left: 15px;
+    margin-right: 15px;
+    color: white;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-gym .nav-link:hover {
+    color: #ffc107;
+    transform: scale(1.05);
+}
 
 
 #icono-principal {
@@ -52,31 +69,20 @@ header {
     padding-top: 15px;
 }
 
-a {
-    margin-left: 15px;
-    margin-right: 15px;
-    text-decoration: none;
-    color: white;
-    font-size: 17px;
-}
 
-a:hover {
-    color: gray;
-}
  
 /* --- Estilos Main (contenido) --- */
 .h2-separador {
     background-color: black;
     padding: 10px;
     color: white;
-    margin-top: 15px;
+    
     margin-bottom: 15px;
     text-align: center;
 }
 
 #listado-cajas,
-#listado-bebidas,
-#listado-tragos {
+#listado-skins{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -149,4 +155,5 @@ footer {
     padding: 10px;
     font-size: 13px;
     background-color: #000000;
+    margin-top: 0px;
 }
