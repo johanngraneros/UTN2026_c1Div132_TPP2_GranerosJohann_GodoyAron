@@ -6,11 +6,9 @@ import environments from "./src/api/config/environments.js";
 import connection from "./src/api/database/db.js";
 import cors from "cors";
 
-
 /////////////////////
 // Config
 const PORT = environments.port;
-
 
 /////////////////////
 // Middlewares
@@ -27,9 +25,9 @@ app.use((req, res, next) => {
     next(); // next() da paso a que continue la respuesta o el siguiente middleware (en caso de haberlo)
 });
 
-// TO DO -> Middleware para parsear JSON en las solcitudes POST y PUT
+// Middleware para parsear JSON en las solcitudes POST y PUT
 
-
+app.use(express.json()); // sin esto, recibe como undefined
 
 /////////////////////
 // Endpoints
@@ -52,10 +50,11 @@ app.get("/api/products", async (req, res) => {
 
 // GET by id
 app.get("/api/products/:id", async (req, res) => {
+    //OBJETIVO A REALIZAR : hay que hacer un try catch x si no hay producto con ese id
 
     const id = req.params.id; // Obtendo el valor que paso por la URL
 
-    const [rows] = await connection.query("SELECT * FROM products where productos.id = ?", [id]);
+    const [rows] = await connection.query("SELECT * FROM productos where productos.id = ?", [id]); // " ? = placeholder"
 
     // console.log(rows);
 
@@ -64,7 +63,55 @@ app.get("/api/products/:id", async (req, res) => {
     });
 });
 
+// POST
 
+app.post("/api/products", async (req, res)=>{
+   
+    console.log(req.body);
+
+    const { name, image, category, price } = req.body;
+
+    console.log(name);
+
+    if (!nombre, !precio){
+        res.status(400).json({
+            mensaje : "nombre y precio faltantes"
+        })
+    }
+
+    const sqlInsert = "INSERT INTO productos (nombre, imagen, categoria, precio) VALUES (? , ? , ? , ?)";
+
+    await connection.query(sql, [nombre, imagen, categoria, precio]);
+
+    res.status(200).json({
+        message: "Producto creado con exito"
+    });
+        
+    });
+
+// UPDATE product
+app.put("/api/products", async (req, res) => {
+    const { id, name, image, price, category } = req.body;
+
+    const sql = "UPDATE productos SET nombre = ?, imagen = ?, precio = ?, categoria = ?, WHERE id = ?";
+
+    await connection.query(sql, [nombre, imagen, precio, categoria, id]);
+
+    return res.status(200).json({
+        message: "Producto actualizado correctamente"
+    });
+});
+
+// DELETE product
+app.delete("/api/products/:id", async (req, res) => {
+    const id = req.params.id;
+
+    await connection.query("DELETE FROM productos WHERE id = ?", [id]);
+
+    res.status(200).json({
+        message: `Producto con id ${id} eliminado exitosamente`
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
