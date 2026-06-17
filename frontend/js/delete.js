@@ -63,7 +63,7 @@ async function eliminarProducto(id) {
     try {
         const response = await fetch(`http://localhost:3000/api/products/${id}`, {
                         method: "DELETE"
-                    }); 
+        }); 
         
         // Convertimos la respuesta del backend a JSON.
         // El backend nos devuelve algo como:
