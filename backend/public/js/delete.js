@@ -1,84 +1,114 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
-        const getProductForm = document.getElementById("getProduct-form");
+const getProductForm = document.getElementById("getProduct-form");
+const urlBase = "http://localhost:3000/api/products";
 
-    getProductForm.addEventListener("submit", async event => {
-        event.preventDefault(); //Evitamos el envio por defecto HTML del formulario
+getProductForm.addEventListener("submit", async event => {
+    event.preventDefault(); //Evitamos el envio por defecto HTML del formulario
 
-        // Extraemos el id del producto
-        const idProd = event.target.idProd.value.trim();
-            
-        try {
-            // Vamos a hacer el fetch a una URL personalizada
-            const response = await fetch(`http://localhost:3000/api/products/${idProd}`);
-            console.log(response);
+    // Optimizacion 1: Para extraer solamente un valor, como el id en nuestro miniformulario, podemos saltarnos el FormData + Object.fromEntries
+    const idProd = event.target.idProd.value.trim();
 
-            // Procesamos los datos que devuelve el servidor
-            const datos = await response.json();
-            console.log(datos);
+    // Optimizacion 2: Nos aseguramos de que se haya enviado un id valido
+    if (!idProd) {
+        mostrarError("Ingresá un id válido");
+        return;
+    }
+    
+    try {
+        // Optimizacion 3: Guardamos en una variable aparte la URL base para no hardcodearla aca
+        const response = await fetch(`${urlBase}/${idProd}`);
+        console.log(response);
 
-            const producto = datos.payload[0];
+        // Procesamos los datos que devuelve el servidor
+        const datos = await response.json();
+        console.log(datos);
 
-            console.log(producto); 
+        // Optimizacion 4: Mostramos por pantalla el error (400 o 500) que nos devuelve el servidor
+        if (!response.ok) {
+            mostrarError(data.message);
+            return;
+        }
 
-            renderizarProducto(producto);
+        const producto = datos.payload[0];
 
-            } catch (error) {
-                console.error("Error al obtener el producto");
-            }
-        });
+        console.log(producto); 
+
+        renderizarProducto(producto);
+
+    } catch (error) {
+        console.error("Error al obtener el producto");
+
+        // Optimizacion 5: Mostramos errores de red (en el try catch del fetch no capturamos errores 400 o 500)
+        mostrarError("Error de conexion con el servidor")
+    }
+});
 
 function renderizarProducto(producto) {
     let htmlProducto = `
-        <ul>
-            <li class="lista-producto">
-                <img src="http://localhost:3000${producto.imagen}" alt="${producto.nombre}">
-                <p>Id: ${producto.id} / Nombre: ${producto.nombre} / <strong>Precio: $${producto.precio}</strong></p>
-                <input type="button" id="deleteProduct-button" value="Eliminar Producto">
-            </li>
-        </ul>
-        `;
+    <ul>
+        <li class="lista-producto">
+            <img src="${producto.imagen}" alt="${producto.nombre}">
+            <p>Id: ${producto.id} / Nombre: ${producto.nombre} / <strong>Precio: $${producto.precio}</strong></p>
+            <input type="button" id="deleteProduct-button" value="Eliminar Producto">
+        </li>
+    </ul>
+    `;
+
     contenedorProductos.innerHTML = htmlProducto;
 
     const deleteProductButton = document.getElementById("deleteProduct-button");
 
-    deleteProductButton.addEventListener("click", event => {event.stopPropagation();
+    deleteProductButton.addEventListener("click", event => {
+        event.stopPropagation();
 
-    const confirmacion = confirm("Querés eliminar este producto?");
+        const confirmacion = confirm("Querés eliminar este producto?");
 
-    if(!confirmacion) {
-        alert("Eliminacion cancelada");
-    } else {
-        eliminarProducto(producto.id);
-            }
-        });
-    }
+        if(!confirmacion) {
+            alert("Eliminacion cancelada");
+        } else {
+            eliminarProducto(producto.id);
+        }
+    });
+}
+
+function mostrarError(mensaje) {
+    contenedorProductos.innerHTML = `
+        <p class="mensaje mensaje-error">${mensaje}</p>
+    `;
+}
+
+function mostrarExito(mensaje) {
+    contenedorProductos.innerHTML = `
+        <p class="mensaje mensaje-exito">${mensaje}</p>
+    `;
+}
+
 
 // Funcion para realizar una operacion delete
 async function eliminarProducto(id) {
-
-    // Hacemos una petición HTTP al backend.
-    // Como usamos method: "DELETE", Express va a buscar una ruta app.delete()
-    // que coincida con esta URL: /api/products/:id
-
     try {
         const response = await fetch(`http://localhost:3000/api/products/${id}`, {
-                        method: "DELETE"
-        }); 
-        
-        // Convertimos la respuesta del backend a JSON.
-        // El backend nos devuelve algo como:
-        // { message: "Producto con id 3 eliminado exitosamente" }
+            method: "DELETE"
+        });
+
         const result = await response.json();
 
-        alert(result.message);
+        // Optimizacion 6: Manejamos un error no ok
+        if (!response.ok) {
+            mostrarError(result.message);
+            return;
+        }
+
+        // Optimizacion 7: En lugar de un alert bloqueante, mostramos un mensaje de exito, similar el mensaje de error
         console.log(result.message);
 
+        // Gracias a mostrarExito, ya no hace falta limpiar la pantalla porque ya reemplazamos el producto por un mensaje en verde
+        mostrarExito(result.message);
         // Limpiamos visualmente el producto que eliminamos de la pantalla
-        contenedorProductos.innerHTML = "";
+        // contenedorProductos.innerHTML = "";
 
-        } catch (error) {
-            // Si falla el fetch, el servidor o la conexión, mostramos el error
-            console.error("Error en la solicitud DELETE: ", error);
-            alert("Ocurrio un error al eliminar un producto");
-                }                           
-    }           
+    } catch (error) {
+        console.error("Error en la solicitud DELETE: ", error);
+        alert("Ocurrio un error al eliminar un producto");
+    }
+}
