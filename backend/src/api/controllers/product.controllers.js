@@ -35,8 +35,6 @@ export const getAllProducts = async (req, res) => {
     }
 }
 
-
-
 //////////////////////
 // Get products by id
 export const getProductById = async (req, res) => {
@@ -69,8 +67,6 @@ export const getProductById = async (req, res) => {
     }
 }
 
-
-
 //////////////////////
 // Create new product
 export const createProduct = async (req, res) => {
@@ -82,12 +78,7 @@ export const createProduct = async (req, res) => {
     try {
         // Gracias al middleware router.use(express.json()); recibo el JSON como objeto JS al que le puedo aplicar el siguiente destrucuring
         console.log(req.body);
-        /*{
-            name: 'Milanesa con pure',
-            image: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcomoquiero-uploads.s3-accelerate.amazonaws.com%2Fimages%2Frecipes%2F6348.webp&f=1&nofb=1&ipt=b5ddc310e8f55d56e45b50cd5d36060579357952f993b359785aa40496b7b8cd',
-            category: 'food',
-            price: '123'
-        }*/
+    
         
         // Recogemos los datos limpios del body
         const { nombre, imagen, categoria, precio } = req.body;
@@ -109,8 +100,6 @@ export const createProduct = async (req, res) => {
         });
     }
 }
-
-
 
 //////////////////////
 // Modify product
@@ -151,8 +140,6 @@ export const modifyProduct = async (req, res) => {
         });
     }
 }
-
-
 
 //////////////////////
 // Delete product
