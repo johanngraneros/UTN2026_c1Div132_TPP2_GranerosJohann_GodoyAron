@@ -34,14 +34,6 @@ getProductForm.addEventListener("submit", async event => {
         const producto = datos.payload[0];
 
         console.log(producto); 
-        /* {
-            "id": 41,
-            "name": "Fernet Cola Chabona",
-            "image": "https://pointlaventanita.com/wp-content/uploads/2024/05/chabona.webp",
-            "category": "drink",
-            "price": "4300.00",
-            "active": 1
-        }*/
 
         renderizarProducto(producto);
 
@@ -148,15 +140,14 @@ async function actualizarProducto(event) {
     // Recojo los datos del formulario (del evento) en un objeto nativo FormData
     const formData = new FormData(event.target);
     console.log(formData);
-    // FormData(6) { id → "63", name → "Estrella Galicia", image → "https://sectorhostelero.com/2988-large_default/estrella-galicia-tercio-33cl-.webp", category → "food", price → "1000.00", active → "1" }
-
+    
     // Transformamos el objeto FormData en un objeto JS, porque queremos parsear estos datos a JSON.stringify()
     const data = Object.fromEntries(formData.entries());
     console.log(data);
-    // Object { id: "63", name: "Estrella Galicia", image: "https://sectorhostelero.com/2988-large_default/estrella-galicia-tercio-33cl-.webp", category: "food", price: "1000.00", active: "1" }
+    
 
     console.log(JSON.stringify(data)); // Esto es lo que le vamos a enviar a nuestro endpoint -> que posteriormente parseara este JSON con el middleware app.use(express.json())
-    // {"id":"63","name":"Estrella Galicia","image":"https://sectorhostelero.com/2988-large_default/estrella-galicia-tercio-33cl-.webp","category":"food","price":"1000.00","active":"1"}
+   }
 
     try {
         const response = await fetch("http://localhost:3000/api/products/", {
