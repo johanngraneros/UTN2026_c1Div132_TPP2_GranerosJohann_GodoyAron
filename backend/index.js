@@ -3,31 +3,49 @@
 import express from "express";
 const app = express();
 import environments from "./src/api/config/environments.js";
-import connection from "./src/api/database/db.js";
+import { authRoutes, productRoutes, viewRoutes } from "./src/api/routes/index.js";
 import cors from "cors";
+import { loggerURL, middlewareSimpatico } from "./src/api/middlewares/middlewares.js";
+import { join, __dirname } from "./src/api/utils/index.js"; // Importamos la configuracion para trabajar con rutas de /utils
+import session from "express-session";
 
 /////////////////////
 // Config
-const PORT = environments.port;
+
+// Estraemos con el destructuring las variables port y session_key
+const { port, session_key } = environments;
+const PORT = port;
 
 /////////////////////
 // Middlewares
 app.use(cors()); // Middleware basico para permitir todas las solicitudes
 
-app.use(express.static("public"));  // Permite que el navegador acceda a los archivos de la carpeta public
-// Ejemplo: public/imagenes/revolutionCase.png se accede como /imagenes/revolutionCase.png
-
-// Middleware logger para analizar todas las solicitudes por consola (tener el historial del consumo de nuestra Api REST en la consola)
-app.use((req, res, next) => {
-    let fecha = new Date();
-    console.log(`[${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}] ${req.method} ${req.url}`);
-    
-    next(); // next() da paso a que continue la respuesta o el siguiente middleware (en caso de haberlo)
-});
-
-// Middleware para parsear JSON en las solcitudes POST y PUT
-
+// Middleware para parsear JSON en las solicitudes POST y PUT con el envio fetch
 app.use(express.json()); // sin esto, recibe como undefined
+
+// Middleware para parsear informacion enviada de forma nativa con <form>
+app.use(express.urlencoded({
+    extended: true
+}));
+
+app.use(loggerURL);
+
+app.use(middlewareSimpatico);
+
+app.use(express.static(join(__dirname, "src/public"))); // Middleware para servir archivos estaticos
+// Gracias a esta configuracion, ya puedo acceder a http://localhost:3000/css/styles.css -> y obtener el archivo css que se encuentra en la ruta "src/public/css/styles.css"
+
+// Configuramos EJS como motor de plantillas
+app.set("view engine", "ejs"); // Motor de vistas
+app.set("views", join(__dirname, "src/views")); // Desde la raiz del servidor apuntamos a / + /src + /views
+
+
+app.use(session({
+    secret: session_key, // Firma las cookies para evitar manipulacion (debe ser una contraseña segura)
+    resave: false, // Evita guardar la sesion si no hubo cambios
+    saveUnitialized: true // No guarda sesiones vacias
+}));
+
 
 /////////////////////
 // Endpoints
@@ -35,83 +53,15 @@ app.get("/", (req, res) => {
     res.send("Hola mundo");
 });
 
-// GET all products
-app.get("/api/products", async (req, res) => {
-    // const sql = "SELECT * FROM products";
-    // aca traere la conexion para tirarle sentencias
-    const [rows, fields] = await connection.query("SELECT * FROM productos");
+//////////
+// Rutas
+app.use("/api/products", productRoutes); // Rutas de producto
+app.use("/dashboard", viewRoutes) // Rutas de vista
+app.use("/login", authRoutes); // Rutas de autenticacion
 
-    // console.log(rows);
+// app.use("/api/users", userRoutes);
 
-    res.status(200).json({
-        payload: rows
-    });
-});
 
-// GET by id
-app.get("/api/products/:id", async (req, res) => {
-    //OBJETIVO A REALIZAR : hay que hacer un try catch x si no hay producto con ese id
-
-    const id = req.params.id; // Obtendo el valor que paso por la URL
-
-    const [rows] = await connection.query("SELECT * FROM productos where productos.id = ?", [id]); // " ? = placeholder"
-
-    // console.log(rows);
-
-    res.status(200).json({  
-        payload: rows // Enviamos dentro de payload el listado de productos obtenido desde MySQL
-    });
-});
-
-// POST
-
-app.post("/api/products", async (req, res)=>{
-   
-    console.log(req.body);
-
-    const { name, image, category, price } = req.body;
-
-    console.log(name);
-
-    if (!nombre, !precio){
-        res.status(400).json({
-            mensaje : "nombre y precio faltantes"
-        })
-    }
-
-    const sqlInsert = "INSERT INTO productos (nombre, imagen, categoria, precio) VALUES (? , ? , ? , ?)";
-
-    await connection.query(sql, [nombre, imagen, categoria, precio]);
-
-    res.status(200).json({
-        message: "Producto creado con exito"
-    });
-        
-    });
-
-// UPDATE product
-app.put("/api/products", async (req, res) => {
-    const { id, name, image, price, category } = req.body;
-
-    const sql = "UPDATE productos SET nombre = ?, imagen = ?, precio = ?, categoria = ?, WHERE id = ?";
-
-    await connection.query(sql, [nombre, imagen, precio, categoria, id]);
-
-    return res.status(200).json({
-        message: "Producto actualizado correctamente"
-    });
-});
-
-// DELETE product
-app.delete("/api/products/:id", async (req, res) => {
-    const id = req.params.id;
-
-    await connection.query("DELETE FROM productos WHERE id = ?", [id]);
-
-    res.status(200).json({
-        message: `Producto con id ${id} eliminado exitosamente`
-    });
-});
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
