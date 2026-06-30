@@ -147,7 +147,7 @@ async function actualizarProducto(event) {
     
 
     console.log(JSON.stringify(data)); // Esto es lo que le vamos a enviar a nuestro endpoint -> que posteriormente parseara este JSON con el middleware app.use(express.json())
-   }
+   
 
     try {
         const response = await fetch("http://localhost:3000/api/products/", {
