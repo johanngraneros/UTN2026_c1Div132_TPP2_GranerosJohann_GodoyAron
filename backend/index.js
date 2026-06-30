@@ -43,7 +43,7 @@ app.set("views", join(__dirname, "src/views")); // Desde la raiz del servidor ap
 app.use(session({
     secret: session_key, // Firma las cookies para evitar manipulacion (debe ser una contraseña segura)
     resave: false, // Evita guardar la sesion si no hubo cambios
-    saveUnitialized: true // No guarda sesiones vacias
+    saveUninitialized: true // No guarda sesiones vacias
 }));
 
 
