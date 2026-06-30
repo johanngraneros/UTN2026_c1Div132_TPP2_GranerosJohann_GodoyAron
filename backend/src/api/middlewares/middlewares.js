@@ -82,9 +82,46 @@ const validateProduct = (req, res, next) => {
     next();
 }
 
+// Middleware de aplicacion (se ejecuta en todas las peticiones de la aplicacion)
+const middlewareSimpatico = (req, res, next) => {
+    console.log("Holis! Soy un middleware que te desea un buen dia por cada peticion");
+
+    // Sin next() nunca damos paso a la response y por tanto la peticion HTTP nunca terminó
+    next();
+}
+
+
+// Middleware de ruta (se ejecuta en ciertas rutas)
+const middlewareBostero = (req, res, next) => {
+    // Este middleware va a hinchar por mi cada vez que creo un producto
+    console.log("SOS UN CAPO CHABON!!! ACABAS DE CREAR UN PRODUCTO!!!! Y DALE DALE DALE DALEEE EL NUEVO PRODUUUUUUUUUUUCTOOOOOO");
+    console.log("VENGAN CHICOS!!!")
+    console.log("Y DALE BOOOOOOOOOOOOOOOOOOOOOOOOOOOOCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    console.log("TIRITIRITIIIII TITITI ITIIIIII TITIIII TIRITITIIII TIIIIII");
+
+    next();
+}
+
+
+// Middleware simple de proteccion de rutas
+const requireLogin = (req, res, next) => {
+
+    // Un login exitoso crea una sesion -> comprobar si existe esa sesion
+
+    // Si no existe sesion redirigimos a la pantalla de login
+    if (!req.session.user) {
+        return res.redirect("/login");
+    }
+
+    next();
+}
+
 
 export {
     loggerURL,
     validateId,
-    validateProduct
+    validateProduct,
+    middlewareSimpatico,
+    middlewareBostero,
+    requireLogin
 }
