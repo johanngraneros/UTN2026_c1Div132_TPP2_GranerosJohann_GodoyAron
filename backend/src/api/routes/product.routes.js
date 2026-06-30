@@ -3,7 +3,7 @@
 ========================*/
 
 import { Router } from "express";
-import { validateId, validateProduct } from "../middlewares/middlewares.js";
+import { middlewareBostero, validateId, validateProduct } from "../middlewares/middlewares.js";
 import { createProduct, getAllProducts, getProductById, modifyProduct, removeProduct } from "../controllers/product.controllers.js";
 
 const router = Router();
@@ -18,7 +18,7 @@ router.get("/:id", validateId, getProductById);
 
 
 // POST product
-router.post("/", validateProduct, createProduct);
+router.post("/", middlewareBostero ,validateProduct, createProduct);
 
 
 // UPDATE product
