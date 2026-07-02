@@ -81,9 +81,9 @@ export const createProduct = async (req, res) => {
     
         
         // Recogemos los datos limpios del body
-        const { nombre, imagen, categoria, precio } = req.body;
+        const { nombre, descripcion, imagen, categoria, precio } = req.body;
 
-        const [rows] = await ProductModels.insertNewProduct(nombre, imagen, categoria, precio);
+        const [rows] = await ProductModels.insertNewProduct(nombre, descripcion, imagen, categoria, precio);
     
         // Optimizacion 4: En lugar de 201, devolvemos un 201 "Created"
         res.status(201).json({
