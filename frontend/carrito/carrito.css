@@ -11,30 +11,42 @@ body {
     background-color: #161616;
 }
 
-ul {
-    padding: 0px;
+l {
+    padding: 0;
 }
 
 li {
     list-style: none;
 }
 
-/* --- Estilos Header (encabezado) --- */
+/* ----- HEADER, NAV ----- */
+nav,
 header {
-    display: flex;
-    background-color: #fff;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px #0000001a;
-    background-color: black;
+    background-color: var(--color-bg-secondary);
+}
+
+header {
+    background-color: var(--color-bg-secondary);
+}
+
+
+
+
+.navbar-gym .nav-link:hover {
+    color: var(--color-primary);
+    transform: scale(1.05);
 }
 
 #icono-principal {
-    width: 55px;
-    height: 55px;
+    height: 56px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
 }
 
 #titulo-principal {
-    color: white;
+    color: var(--color-text);
     font-size: 28px;
     display: flex;
     justify-content: center;
@@ -49,18 +61,6 @@ header {
     align-items: center;
     height: 55px;
     padding-top: 15px;
-}
-
-a {
-    margin-left: 15px;
-    margin-right: 15px;
-    text-decoration: none;
-    color: white;
-    font-size: 17px;
-}
-
-a:hover {
-    color: gray;
 }
  
 /* --- Estilos Main (contenido) --- */
