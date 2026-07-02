@@ -2,7 +2,8 @@
     Controladores de autenticacion
 ====================================*/
 
-import connection from "../database/db.js";;
+import connection from "../database/db.js";
+import bcrypt from "bcrypt";
 
 /////////////////
 // Vista Login
@@ -25,18 +26,32 @@ export const processLoginInfo = async (req, res) => {
 
         // Evitamos una consulta innecesaria
         if(!email || !password) {
-            return res.render("login");            
+            return res.render("login", {
+                title: "Login",
+                about: "Introduci tus credenciales",
+                error: "Faltan campos en el formulario"
+            });            
         }
 
 
-        // TO DO, mandar error a la vista del login
-
+        /*
         // TO DO, Crearemos el modelo de usuarios
         const sql = "SELECT * FROM users where email = ? AND password = ?";
         const [rows] = await connection.query(sql, [email, password]);
+        */
 
+        // Bcrypt 1 -> Traemos solamente el usuario por su email
+        const sql = "SELECT * FROM users where email = ?";
+        const [rows] = await connection.query(sql, [email]);
 
         // TO DO, mensaje de error si no existe el usuario admin
+        if (rows.length === 0) {
+            return res.render("login", {
+                title: "Login",
+                about: "Introduci tus credenciales",
+                error: "No existe el usuario"
+            });   
+        }
 
         // Guardamos el usuario que recibimos en la variable rows
         // id, name, email, password
@@ -44,15 +59,29 @@ export const processLoginInfo = async (req, res) => {
         const user = rows[0];
         console.table(user);
 
-        // Una vez que recibimos a nuestro usuario admin, vamos a creada una sesion
-        req.session.user = {
-            id: user.id,
-            name: user.name,
-            email: user.email
-        }
+        // Bcrypt 2 -> Comparamos si el hasheo de este password es igual al hasheo de la BBDD
+        const match = await bcrypt.compare(password, user.password);
+        console.log(match);
 
-        // Ya con la nueva sesion creada, redirigimos al dashboard
-        res.redirect("/dashboard/index");
+        // Bcrypt 3 -> Si coinciden los hashes, match devuelve true y continuamos con el login
+        if (match) {
+            // Una vez que recibimos a nuestro usuario admin, vamos a creada una sesion
+            req.session.user = {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }
+    
+            // Ya con la nueva sesion creada, redirigimos al dashboard
+            res.redirect("/dashboard/index");
+
+        } else {
+            return res.render("login", {
+                title: "Login",
+                about: "Introduci tus credenciales",
+                error: "Password invalido"
+            });
+        }
 
 
     } catch (error) {
