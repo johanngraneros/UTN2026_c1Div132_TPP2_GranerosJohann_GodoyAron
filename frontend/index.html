@@ -32,7 +32,133 @@
     <!-- Encabezado -->
     <header>
 
-        <nav class="navbar navbar-gym navbar-expand-lg fixed-top">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-nav py-3">
+    <div class="container-fluid position-relative">
+
+        <!-- Icono search izquierda -->
+        <div class="position-absolute start-0 ms-4">
+            <a class="navbar-brand m-0" href="#">
+                <i class="bi bi-search fs-4"></i>
+            </a>
+        </div>
+
+        <!-- Contenido central -->
+        <div class="mx-auto text-center">
+
+            <!-- Logo centrado -->
+            <a class="navbar-brand d-block mx-auto mb-3" href="index.html">
+                <img id="icono-principal" src="logo/counterStrike.svg" alt="Logo Keydrop" style="width: 70px;">
+            </a>
+
+            <!-- Boton hamburguesa en mobile -->
+            <button class="navbar-toggler mx-auto mb-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCatalogo" aria-controls="navbarCatalogo" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links debajo del logo -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarCatalogo">
+                <ul class="navbar-nav nav-underline justify-content-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProductos" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownProductos">
+                            <li>
+                                <a class="dropdown-item" href="#cajas">Cajas</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#skins">Skins</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cajas">Cajas</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skins">Skins</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- Iconos derecha -->
+        <div class="position-absolute end-0 me-4 d-flex gap-3">
+
+            <!-- Login admin -->
+            <a class="navbar-brand m-0" href="http://localhost:3000/login" title="Iniciar sesión admin">
+                <i class="bi bi-person fs-4"></i>
+            </a>
+
+            <!-- Carrito -->
+            <a class="navbar-brand m-0" href="carrito/carrito.html" title="Carrito">
+                <i class="bi bi-cart fs-4"></i>
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+        <!-- <nav class="navbar navbar-expand-lg navbar-dark nav-underline">
+            <div class="container-fluid">
+                <div class="logo-svg ms-2 justify-content-end mx-auto">
+                    <img id="icono-principal" src="logo/counterStrike.svg" alt="Logo Keydrop" />
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center mx-auto">
+                    <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link " href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Productos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#cajas">Cajas</a></li>
+                        <li><a class="dropdown-item" href="#skins">Skins</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        
+                    </ul>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Graneros | Godoy</a>
+                    </li>
+                </ul>
+                <form class="d-flex justify-content-start">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+                </div>
+            </div>
+        </nav> -->
+
+
+
+
+
+
+
+
+        <!-- <nav class="navbar navbar-gym navbar-expand-lg fixed-top">
             <div class="container-fluid">
                 <div class="logo-svg ms-2">
                     <img id="icono-principal" src="logo/counterStrike.svg" alt="Logo Keydrop" />
@@ -42,11 +168,6 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
                     
-                    <!-- <div class="nav-logo">
-                        <img src="logo/casedrop_logo3.png" alt="Ave Loot Logo">
-                    </div> -->
-
-
                        <ul class="navbar-nav justify-content-center">
             
                             <li class="nav-item">
@@ -59,9 +180,7 @@
                             <a class="nav-link" href="#skins">Skins</a>
                             </li>
                             <li class="nav-item">
-                             <!-- <div class="logo-item-nav">
-                                <i class="bi bi-cart4"></i>
-                            </div>    -->
+
                             <a class="nav-link " href="./carrito/carrito.html" tabindex="-1" aria-disabled="true">Carrito</a>
                             </li>
                         
@@ -69,7 +188,7 @@
                 </div>
             </div>
         </nav>
-        
+         -->
     </header>
 
     <!-- Contenido principal de la pagina -->
