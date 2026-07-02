@@ -3,7 +3,7 @@
 import express from "express";
 const app = express();
 import environments from "./src/api/config/environments.js";
-import { authRoutes, productRoutes, viewRoutes, userRoutes } from "./src/api/routes/index.js";
+import { authRoutes, productRoutes, viewRoutes, userRoutes, saleRoutes } from "./src/api/routes/index.js";
 import cors from "cors";
 import { loggerURL, middlewareSimpatico } from "./src/api/middlewares/middlewares.js";
 import { join, __dirname } from "./src/api/utils/index.js"; // Importamos la configuracion para trabajar con rutas de /utils
