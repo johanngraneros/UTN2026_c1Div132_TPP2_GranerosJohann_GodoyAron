@@ -13,6 +13,12 @@ export const createAdminUser = async (req, res) => {
         // Recogemos los datos limpios del body
         const { nameUser, emailUser, passUser } = req.body;
 
+        if (!nameUser || !emailUser || !passUser) {
+            return res.status(400).json({
+                message: "Faltan datos para crear el usuario"
+            });
+        }
+
         // Bcrypt 1 -> Vamos a hashear el nuevo password del user admin
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(passUser, saltRounds);
