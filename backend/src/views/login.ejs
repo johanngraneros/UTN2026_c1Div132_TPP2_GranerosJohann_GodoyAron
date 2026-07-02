@@ -16,4 +16,11 @@
     </div>
 </form>
 
+<!-- Mostramos posible mensaje de error del endpoint -->
+<% if(typeof error !== "undefined") { %> 
+
+    <p class="mensaje mensaje-error"><%= error %></p>
+
+<% } %>
+
 <%- include("partials/head.ejs") %>
