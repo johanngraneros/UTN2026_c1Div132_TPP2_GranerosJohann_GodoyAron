@@ -1,5 +1,6 @@
 const contenedorProductos = document.getElementById("contenedor-productos");
 const postProductForm = document.getElementById("postProduct-form");
+const postUserForm = document.getElementById("postUser-form");
 
 // Optimizacion 1: Validamos previamente los datos en el cliente
 function validarFormulario(data) {
@@ -29,8 +30,54 @@ function mostrarMensaje(tipo, mensaje) {
     `;
 }
 
+//////////////////////
+// Enviando usuario
+postUserForm.addEventListener("submit", async event => {
+    event.preventDefault(); // Evitamos el envio por defecto del formulario
 
+    // Obtenemos la data del formulario
+    const formData = new FormData(event.target);
 
+    // Convertimos nuestro objeto formdata en un objeto literal de JavaScript
+    const data = Object.fromEntries(formData.entries());
+    console.table(data);
+
+    const jsonData = JSON.stringify(data);
+    console.log(jsonData);
+
+    try {
+        
+        const response = await fetch("http://localhost:3000/api/users/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: jsonData
+        });
+
+        console.log(response);
+        const result = await response.json();
+
+        if (!response.ok) {
+            mostrarMensaje("error", result.message);
+            return;
+        }
+
+        // Mostramos el mensaje de exito y reseteamos el form
+        const infoUser = `${result.message} con id ${result.userId}`
+        mostrarMensaje("exito", infoUser)
+        console.log(infoUser);
+
+        event.target.reset();
+
+    } catch (error) {
+        console.error("Error al enviar los datos: ", error);
+    }
+
+});
+
+//////////////////////
+// Enviando producto
 postProductForm.addEventListener("submit", async event => {
     
     event.preventDefault();
@@ -46,7 +93,7 @@ postProductForm.addEventListener("submit", async event => {
     console.log(data); 
     
     // Optimizacion 3: Parseamos price antes de enviarlo, FormData devuelve todo como strings y el back espera que price sea numero
-    data.price = Number(data.precio);
+    data.precio = Number(data.precio);
 
 
     // Hacemos la llamada a la funcion para validar datos del formulario
@@ -99,3 +146,4 @@ postProductForm.addEventListener("submit", async event => {
         console.error("Error al enviar los datos: ", error);
     }
 });
+
