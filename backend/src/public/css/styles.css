@@ -202,11 +202,7 @@ footer {
     border-top: 1px solid var(--color-border);
 }
 
-.form-alta {
-    display: flex;
-    flex-direction: column;
-    width: 45%;
-}
+
 
 #deleteProduct-button {
     margin-bottom: 0;
