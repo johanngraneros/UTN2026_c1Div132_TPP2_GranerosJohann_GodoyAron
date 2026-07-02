@@ -95,7 +95,7 @@ header {
 main {
     background-color: var(--color-bg);
     min-height: 100vh;
-    padding-top: 80px;
+    padding-top: 0px;
 }
 
 .h2-separador {
@@ -200,4 +200,40 @@ footer {
     text-align: center;
     background-color: #050607;
     border-top: 1px solid var(--color-border);
+}
+
+.form-alta {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+#deleteProduct-button {
+    margin-bottom: 0;
+}
+
+.mensaje {
+    border-radius: 6px;
+    margin-top: 20px;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+.mensaje-error {
+    color: var(--msg-error-color);
+    background-color: var(--msg-error-bg);
+    border: 1px solid var(--msg-error-border);
+}
+
+.mensaje-exito {
+    color: var(--msg-exito-color);
+    background-color: var(--msg-exito-bg);
+    border: 1px solid var(--msg-exito-border);
+}
+
+#form-logout {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
 }
