@@ -68,3 +68,12 @@ export const deleteProductView = (req, res) => {
         about: "Consultar producto por id: "
     });
 }
+
+////////////////////
+// Vista carrito
+export const carritoView = (req, res) => {
+    res.render("carrito", {
+        title: "Carrito",
+        about: "Mi carrito"
+    });
+};
