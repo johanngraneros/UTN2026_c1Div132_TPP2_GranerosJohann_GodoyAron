@@ -3,35 +3,41 @@
         <nav class="navbar navbar-gym navbar-expand-lg ">
             <div class="container-fluid">
                 <div class="logo-svg ms-2">
-                    <img id="icono-principal" src="logo/counterStrike.svg" alt="Logo Keydrop" />
+                    <img id="icono-principal" src="/uploads/logo/counterStrike.svg" alt="Logo Keydrop" />
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                       <ul class="navbar-nav ">
+                
+                       <ul class="navbar-nav mx-auto">
             
                             <li class="nav-item">
-                            <a class="nav-link " aria-current="page" href="index.html">Inicio</a>
+                            <a class="nav-link " aria-current="page" href="/dashboard/index">Inicio</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" href="get.html">Consultar</a>
+                            <a class="nav-link" href="/dashboard/consultar">Consultar</a>
                             </li>
                             <li class="nav-item ">
-                            <a class="nav-link" href="post.html">Crear</a>
+                            <a class="nav-link" href="/dashboard/crear">Crear</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link " href="put.html" tabindex="-1" aria-disabled="true">Modificar</a>
+                            <a class="nav-link " href="/dashboard/modificar" >Modificar</a>
                             </li>
                             <li class="nav-item ">
-                            <a class="nav-link" href="delete.html">Eliminar</a>
+                            <a class="nav-link" href="/dashboard/eliminar">Eliminar</a>
                             </li>
-                        
+                            
                         </ul>
-                </div>
+
+                            <form id="form-logout" method="POST" action="/login/destroy" class="d-flex">
+                                <input type="submit" value="Cerrar sesion">
+                            </form>
+                    
                 </div>
             </div>
         </nav>
         
+        
+
     </header>
