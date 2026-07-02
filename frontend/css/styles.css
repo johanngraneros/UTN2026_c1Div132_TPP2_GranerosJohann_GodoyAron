@@ -48,20 +48,8 @@ header {
     background-color: var(--color-bg-secondary);
 }
 
-.navbar-gym {
-    background-color: var(--color-bg-secondary);
-    min-height: 80px;
-    border-bottom: 1px solid var(--color-border);
-}
 
-.navbar-gym .nav-link {
-    color: var(--color-text);
-    font-size: 22px;
-    font-weight: 600;
-    margin-left: 0px;
-    margin-right: 0px;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
+
 
 .navbar-gym .nav-link:hover {
     color: var(--color-primary);
@@ -200,4 +188,9 @@ footer {
     text-align: center;
     background-color: #050607;
     border-top: 1px solid var(--color-border);
+}
+
+
+.bg-nav {
+    background-color: #1e1e1e;
 }
