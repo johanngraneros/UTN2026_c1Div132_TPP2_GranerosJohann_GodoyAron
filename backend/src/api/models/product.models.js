@@ -9,7 +9,7 @@ import connection from "../database/db.js";
 // Traer todos los productos
 const selectAllProducts = () => {
   
-    const sql = "SELECT id, nombre, precio, imagen, categoria FROM productos";
+    const sql = "SELECT id, nombre, precio, imagen, categoria, descripcion FROM productos";
     return connection.query(sql);
 }
 
