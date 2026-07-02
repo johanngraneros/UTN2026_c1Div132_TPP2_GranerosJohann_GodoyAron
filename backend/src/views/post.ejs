@@ -3,39 +3,40 @@
 
  <main>
 
-        <section class="form-productos">
-            <h2>Crear producto</h2>
-            
-            <form id="postProduct-form" class="form-alta">
-                <label for="nameProd">Nombre</label>
-                <input type="text" name="name" id="nameProd" required>
+        
 
-                <label for="imageProd">Imagen</label>
-                <input type="text" name="image" id="imageProd" required>
+    <form id="postProduct-form" class="form-alta">
+        <label for="nombreProd">Nombre</label>
+        <input type="text" name="nombre" id="nombreProd" required>
 
-                <label for="categoryProd">Categoria</label>
-                <select name="category" id="categoryProd" required>
-                    <option value="cajas">Cajas</option>
-                    <option value="skins">Skins</option>
-                </select>
+        <label for="descripcionProd">Descripción</label>
+        <input type="text" name="descripcion" id="descripcionProd" required>
 
-                <label for="priceProd">Precio</label>
-                <input type="number" name="price" id="priceProd" required>
-                
-                <div>
-                    <input type="submit" value="Crear producto">
-                </div>
-            </form>
+        <label for="imagenProd">Imagen</label>
+        <input type="text" name="imagen" id="imagenProd" required>
 
-        </section>
+        <label for="categoriaProd">Categoria</label>
+        <select name="categoria" id="categoriaProd" required>
+            <option value="cajas">Cajas</option>
+            <option value="skins">Skins</option>
+        </select>
 
-        <section class="secccion-productos">
-            <div id="contenedor-productos">
-                <!-- // aca tira el msj exito o error -->
-            </div>
-        </section>
-    </main>
+        <label for="precioProd">Precio</label>
+        <input type="number" name="precio" id="precioProd" required>
+        
+        <div>
+            <input type="submit" value="Crear producto">
+        </div>
+    </form>
 
+    <section class="secccion-productos">
+        <div id="contenedor-productos"></div>
+    </section>
+
+</main>
+
+
+    
     <script src="js/post.js"></script>   
 
 <%- include("partials/footer.ejs") %>
