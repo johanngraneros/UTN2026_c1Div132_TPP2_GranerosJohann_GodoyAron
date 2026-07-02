@@ -12,6 +12,11 @@ function obtenerCarrito()
     return [];
 }
 
+function guardarCarrito(carrito) 
+{
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
 function cargarProductosCarrito() 
 {
     let tabla = document.getElementById("tabla-carrito");
@@ -29,6 +34,7 @@ function cargarProductosCarrito()
             <td class="celda-header-tabla-carrito">Nombre del producto</td>
             <td class="celda-header-tabla-carrito">Cantidad</td>
             <td class="celda-header-tabla-carrito">Precio unitario</td>
+            <td class="celda-header-tabla-carrito">Acciones</td>
         </tr>
     `;
 
@@ -58,12 +64,32 @@ function cargarProductosCarrito()
                     <td>${producto.nombre}</td>
                     <td>${producto.cantidad}</td>
                     <td>$${precioUnitario}</td>
+                    <td>
+                        <button class="btn-danger btn-restar-cantidad" data-id="${producto.id}">-</button>
+                        <button class="btn-danger btn-sumar-cantidad" data-id="${producto.id}">+</button>
+                    </td>
                 </tr>
             `;
         }
     });
 
     valorFinal.textContent = "El valor final a pagar es de: $" + total;
+
+    document.querySelectorAll(".btn-sumar-cantidad").forEach((boton) => 
+    {
+        boton.addEventListener("click", () => 
+        {
+            sumarCantidad(Number(boton.dataset.id));
+        });
+    });
+
+    document.querySelectorAll(".btn-restar-cantidad").forEach((boton) => 
+    {
+        boton.addEventListener("click", () => 
+        {
+            restarCantidad(Number(boton.dataset.id));
+        });
+    });
 }
 
 function limpiarCarrito() 
@@ -75,6 +101,38 @@ function limpiarCarrito()
     alert("Carrito limpiado correctamente");
 
     // Volvemos a cargar la tabla
+    cargarProductosCarrito();
+}
+
+function sumarCantidad(idProducto) 
+{
+    let carrito = obtenerCarrito();
+
+    let productoEncontrado = carrito.find(producto => producto.id === idProducto);
+
+    if (productoEncontrado) 
+    {
+        productoEncontrado.cantidad = productoEncontrado.cantidad + 1;
+    }
+
+    guardarCarrito(carrito);
+    cargarProductosCarrito();
+}
+
+function restarCantidad(idProducto) 
+{
+    let carrito = obtenerCarrito();
+
+    let productoEncontrado = carrito.find(producto => producto.id === idProducto);
+
+    if (productoEncontrado) 
+    {
+        productoEncontrado.cantidad = productoEncontrado.cantidad - 1;
+    }
+
+    carrito = carrito.filter(producto => producto.cantidad > 0);
+
+    guardarCarrito(carrito);
     cargarProductosCarrito();
 }
 
