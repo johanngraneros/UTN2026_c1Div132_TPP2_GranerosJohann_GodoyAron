@@ -1,58 +1,60 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/header.ejs") %>
 
-<main>
-    <!-- Seccion de Cajas -->
-    <section id="cajas">
-        <h2 class="h2-separador">Cajas</h2>
+    <main>
+        <!-- Seccion de Cajas -->
+        <section id="cajas">
+            <h2 class="h2-separador">Cajas</h2>
 
-        <ul id="listado-cajas">
-            <% productsArray.forEach(producto => { %>
-                <% if (producto.categoria === "cajas") { %>
-                    <li class="li-cajas">
-                        <img class="img-producto" src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
+            <ul id="listado-cajas">
+                <% productsArray.forEach(producto => { %>
+                    <% if (producto.categoria === "cajas") { %>
+                        <li class="li-cajas">
+                            <img class="img-producto" src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
 
-                        <h3 class="nombre-producto"><%= producto.nombre %></h3>
+                            <h3 class="nombre-producto"><%= producto.nombre %></h3>
 
-                        <p class="precio-producto">$<%= producto.precio %></p>
+                            <p class="precio-producto">$<%= producto.precio %></p>
 
-                        <p class="descripcion-producto">
-                            <%= producto.descripcion %>
-                        </p>
+                            <p class="descripcion-producto">
+                                <%= producto.descripcion %>
+                            </p>
 
-                        <button class="btn-sumar-a-carrito">+</button>
-                        <button class="btn-restar-a-carrito">-</button>
-                    </li>
-                <% } %>
-            <% }) %>
-        </ul>
-    </section>
+                            <button class="btn-sumar-a-carrito">+</button>
+                            <button class="btn-restar-a-carrito">-</button>
+                        </li>
+                    <% } %>
+                <% }) %>
+            </ul>
+        </section>
 
-    <!-- Seccion de Skins -->
-    <section id="skins">
-        <h2 class="h2-separador">Skins</h2>
+        <!-- Seccion de Skins -->
+        <section id="skins">
+            <h2 class="h2-separador">Skins</h2>
 
-        <ul id="listado-skins">
-            <% productsArray.forEach(producto => { %>
-                <% if (producto.categoria === "skins") { %>
-                    <li class="li-skins">
-                        <img class="img-producto" src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
+            <ul id="listado-skins">
+                <% productsArray.forEach(producto => { %>
+                    <% if (producto.categoria === "skins") { %>
+                        <li class="li-skins">
+                            <img class="img-producto" src="<%= producto.imagen %>" alt="<%= producto.nombre %>">
 
-                        <h3 class="nombre-producto"><%= producto.nombre %></h3>
+                            <h3 class="nombre-producto"><%= producto.nombre %></h3>
 
-                        <p class="precio-producto">$<%= producto.precio %></p>
+                            <p class="precio-producto">$<%= producto.precio %></p>
 
-                        <p class="descripcion-producto">
-                            <%= producto.descripcion %>
-                        </p>
+                            <p class="descripcion-producto">
+                                <%= producto.descripcion %>
+                            </p>
 
-                        <button class="btn-sumar-a-carrito">+</button>
-                        <button class="btn-restar-a-carrito">-</button>
-                    </li>
-                <% } %>
-            <% }) %>
-        </ul>
-    </section>
-</main>
-
+                            <button class="btn-sumar-a-carrito">+</button>
+                            <button class="btn-restar-a-carrito">-</button>
+                        </li>
+                    <% } %>
+                <% }) %>
+            </ul>
+        </section>
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="js/index.js" ></script>
 <%- include("partials/footer.ejs") %>
