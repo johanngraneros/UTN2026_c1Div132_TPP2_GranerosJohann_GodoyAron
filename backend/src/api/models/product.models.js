@@ -52,6 +52,7 @@ const Product = sequelize.define(
 const selectAllProducts = async () => {
     //  'attributes' filtra las columnas. 'raw: true' devuelve JSON puro y plano en vez de una instancia pesada de Sequelize.
     const rows = await Product.findAll({
+        where: { activo: 1 }, // si esta activo el producto traigo el resto
         attributes: ["id", "nombre","descripcion", "precio", "imagen", "categoria"],
         raw: true
     });
@@ -116,6 +117,13 @@ const deleteProduct = async (id) => {
     console.log(`Producto con ID ${id} eliminado. Filas afectadas: ${deletedRows}`);
 
     return [{ affectedRows: deletedRows }];
+
+    // const [updatedRows] = await Product.update(
+    //     { activo: false },
+    //     { where: { id } }
+    // );             
+
+    // return [{ affectedRows: updatedRows }];
 };
 
 
