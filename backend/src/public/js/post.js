@@ -17,6 +17,9 @@ function validarFormulario(data) {
     if (!data.categoria) {
         errores.push("Debe seleccionarse una categoria");
     }
+    if (!data.descripcion) {
+        errores.push("Debe haber una descripcion");
+    }
 
     return errores;
 }
@@ -32,49 +35,49 @@ function mostrarMensaje(tipo, mensaje) {
 
 //////////////////////
 // Enviando usuario
-postUserForm.addEventListener("submit", async event => {
-    event.preventDefault(); // Evitamos el envio por defecto del formulario
+// postUserForm.addEventListener("submit", async event => {
+//     event.preventDefault(); // Evitamos el envio por defecto del formulario
 
-    // Obtenemos la data del formulario
-    const formData = new FormData(event.target);
+//     // Obtenemos la data del formulario
+//     const formData = new FormData(event.target);
 
-    // Convertimos nuestro objeto formdata en un objeto literal de JavaScript
-    const data = Object.fromEntries(formData.entries());
-    console.table(data);
+//     // Convertimos nuestro objeto formdata en un objeto literal de JavaScript
+//     const data = Object.fromEntries(formData.entries());
+//     console.table(data);
 
-    const jsonData = JSON.stringify(data);
-    console.log(jsonData);
+//     const jsonData = JSON.stringify(data);
+//     console.log(jsonData);
 
-    try {
+//     try {
         
-        const response = await fetch("http://localhost:3000/api/users/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: jsonData
-        });
+//         const response = await fetch("http://localhost:3000/api/users/", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: jsonData
+//         });
 
-        console.log(response);
-        const result = await response.json();
+//         console.log(response);
+//         const result = await response.json();
 
-        if (!response.ok) {
-            mostrarMensaje("error", result.message);
-            return;
-        }
+//         if (!response.ok) {
+//             mostrarMensaje("error", result.message);
+//             return;
+//         }
 
-        // Mostramos el mensaje de exito y reseteamos el form
-        const infoUser = `${result.message} con id ${result.userId}`
-        mostrarMensaje("exito", infoUser)
-        console.log(infoUser);
+//         // Mostramos el mensaje de exito y reseteamos el form
+//         const infoUser = `${result.message} con id ${result.userId}`
+//         mostrarMensaje("exito", infoUser)
+//         console.log(infoUser);
 
-        event.target.reset();
+//         event.target.reset();
 
-    } catch (error) {
-        console.error("Error al enviar los datos: ", error);
-    }
+//     } catch (error) {
+//         console.error("Error al enviar los datos: ", error);
+//     }
 
-});
+// });
 
 //////////////////////
 // Enviando producto
