@@ -78,8 +78,95 @@ function limpiarCarrito()
     cargarProductosCarrito();
 }
 
+async function finalizarCompra() 
+{
+    let carrito = obtenerCarrito();
+
+    if (carrito.length === 0) 
+    {
+        alert("El carrito esta vacio");
+        return;
+    }
+
+    let nombreUsuario = sessionStorage.getItem("nombreUsuario");
+
+    if (!nombreUsuario) 
+    {
+        nombreUsuario = prompt("Ingresa tu nombre para finalizar la compra");
+
+        if (!nombreUsuario) 
+        {
+            alert("Necesitas ingresar un nombre para continuar");
+            return;
+        }
+
+        sessionStorage.setItem("nombreUsuario", nombreUsuario);
+    }
+
+    let total = 0;
+
+    carrito.forEach((producto) => 
+    {
+        let precioUnitario = Number(String(producto.precio).replace("$", ""));
+        total = total + (precioUnitario * producto.cantidad);
+    });
+
+    let productos = carrito.map((producto) => 
+    {
+        return {
+            id_producto: producto.id, //id_producto: producto.id_producto
+            cantidad: producto.cantidad
+        };
+    });
+
+    let venta = {
+        nombre_usuario: nombreUsuario,
+        precio_total: total,
+        productos: productos
+    };
+
+    try 
+    {
+        let response = await fetch("http://localhost:3000/api/sales", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(venta)
+        });
+
+        let data = await response.json();
+
+        if (!response.ok) 
+        {
+            alert(data.message || "Error al registrar la venta");
+            return;
+        }
+
+        sessionStorage.setItem("ticket", JSON.stringify({
+            id: data.payload.id,
+            nombre_usuario: nombreUsuario,
+            precio_total: total,
+            productos: carrito
+        }));
+
+        localStorage.removeItem("carrito");
+
+        alert("Compra realizada correctamente");
+
+        window.location.href = "../ticket.html";
+    } 
+    catch (error) 
+    {
+        console.log(error);
+        alert("No se pudo conectar con el servidor");
+    }
+}
+
 window.addEventListener("DOMContentLoaded", () =>
 {
     cargarProductosCarrito();
     document.querySelector(".btn-limpiar-carrito").addEventListener("click", limpiarCarrito);
+    document.querySelector(".btn-finalizar-compra").addEventListener("click", finalizarCompra);
 });
+
