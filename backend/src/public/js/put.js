@@ -40,7 +40,7 @@ getProductForm.addEventListener("submit", async event => {
         renderizarProducto(producto);
 
     } catch (error) {
-        console.error("Error al obtener el producto");
+        console.error("Error al obtener el producto", error);
 
         // Optimizacion 5: Mostramos errores de red (en el try catch del fetch no capturamos errores 400 o 500)
         mostrarMensaje("error", "Error de conexion con el servidor")
@@ -105,8 +105,8 @@ async function formularioPutProducto(event, producto) {
 
     <label for="categoriaProd">Categoria</label>
     <select name="categoria" id="categoriaProd" required>
-        <option value="cajas">cajas</option>
-        <option value="skins">skins</option>
+         <option value="cajas" ${producto.categoria === "cajas" ? "selected" : ""}>cajas</option>
+        <option value="skins" ${producto.categoria === "skins" ? "selected" : ""}>skins</option>
     </select>
 
     <label for="precioProd">Precio</label>
