@@ -156,8 +156,8 @@ app.get("/", (req, res) => {
 app.use("/api/products", productRoutes); // Rutas de producto
 app.use("/dashboard", viewRoutes) // Rutas de vista
 app.use("/login", authRoutes); // Rutas de autenticacion
-
 app.use("/api/users", userRoutes);
+app.use("/api/sales", saleRoutes); //Rutas de ventas POST http://localhost:3000/api/sales
 
 await connectDatabase();
 
