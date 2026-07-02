@@ -118,7 +118,7 @@ const deleteProduct = async (id) => {
 
     return [{ affectedRows: deletedRows }];
 
-    // const [updatedRows] = await Product.update(
+    // const [updatedRows] = await Product.update( baja logica
     //     { activo: false },
     //     { where: { id } }
     // );             
