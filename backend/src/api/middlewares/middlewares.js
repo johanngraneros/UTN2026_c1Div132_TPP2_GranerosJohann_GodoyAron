@@ -44,7 +44,6 @@ const validateId = (req, res, next) => {
 }
 
 
-
 // Middleware de ruta para validar los campos de un formulario POST
 const categoriasValidas = ["cajas", "skins"];
 const validateProduct = (req, res, next) => {
@@ -56,19 +55,19 @@ const validateProduct = (req, res, next) => {
     const errores = [];
 
     // Validamos si se recibieron todos del body
-    if (!name || !category || !price) {
+    if (!nombre || !categoria || !precio) {
         errores.push("Datos invalidos, asegurate de incluir todas las categorias");
     }
 
-    if (typeof name !== "string" || name.trim().length < 2) {
+    if (typeof nombre !== "string" || nombre.trim().length < 2) {
         errores.push("El nombre debe tener al menos 2 caracteres");
     }
 
-    if (typeof price !== "number" || price <= 0) {
+    if (typeof precio !== "number" || precio <= 0) {
         errores.push("El precio debe ser un numero mayor a 0");
     }
 
-    if(!categoriasValidas.includes(category)) {
+    if(!categoriasValidas.includes(categoria)) {
         errores.push("Categoria invalida");
     };
 
@@ -94,11 +93,7 @@ const middlewareSimpatico = (req, res, next) => {
 // Middleware de ruta (se ejecuta en ciertas rutas)
 const middlewareBostero = (req, res, next) => {
     // Este middleware va a hinchar por mi cada vez que creo un producto
-    console.log("SOS UN CAPO CHABON!!! ACABAS DE CREAR UN PRODUCTO!!!! Y DALE DALE DALE DALEEE EL NUEVO PRODUUUUUUUUUUUCTOOOOOO");
-    console.log("VENGAN CHICOS!!!")
-    console.log("Y DALE BOOOOOOOOOOOOOOOOOOOOOOOOOOOOCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    console.log("TIRITIRITIIIII TITITI ITIIIIII TITIIII TIRITITIIII TIIIIII");
-
+    console.log("Producto creado");
     next();
 }
 
