@@ -11,10 +11,12 @@ getProductForm.addEventListener("submit", async event => {
 
     // Optimizacion 2: Nos aseguramos de que se haya enviado un id valido
     if (!idProd) {
-        mostrarError("error", "Ingresá un id válido");
+        mostrarMensaje("error", "Ingresá un id válido");
         return;
     }
 
+    contenedorProductos.innerHTML = "";
+    contenedorForm.innerHTML = "";
     
     try {
         // Optimizacion 3: Guardamos en una variable aparte la URL base para no hardcodearla aca
@@ -27,7 +29,7 @@ getProductForm.addEventListener("submit", async event => {
 
         // Optimizacion 4: Mostramos por pantalla el error (400 o 500) que nos devuelve el servidor
         if (!response.ok) {
-            mostrarError("error", data.message);
+            mostrarMensaje("error", datos.message);
             return;
         }
 
@@ -41,7 +43,7 @@ getProductForm.addEventListener("submit", async event => {
         console.error("Error al obtener el producto");
 
         // Optimizacion 5: Mostramos errores de red (en el try catch del fetch no capturamos errores 400 o 500)
-        mostrarError("error", "Error de conexion con el servidor")
+        mostrarMensaje("error", "Error de conexion con el servidor")
     }
 });
 
@@ -90,22 +92,25 @@ async function formularioPutProducto(event, producto) {
     <hr>
     <form id="updateProduct-form" class="form-alta">
 
-        <input type="hidden" name="id" value="${producto.id}">
+    <input type="hidden" name="id" value="${producto.id}">
 
-        <label for="nameProd">Nombre</label>
-        <input type="text" name="nombre" id="nameProd" value="${producto.nombre}" required>
+    <label for="nombreProd">Nombre</label>
+    <input type="text" name="nombre" id="nombreProd" value="${producto.nombre}" required>
 
-        <label for="imageProd">Imagen</label>
-        <input type="text" name="image" id="imageProd" value="${producto.imagen}" required>
+    <label for="descripcionProd">Descripcion</label>
+    <input type="text" name="descripcion" id="descripcionProd" value="${producto.descripcion}" required>
 
-        <label for="categoryProd">Categoria</label>
-        <select name="categoria" id="categoryProd" required>
-            <option value="cajas">cajas</option>
-            <option value="skins">skins</option>
-        </select>
+    <label for="imagenProd">Imagen</label>
+    <input type="text" name="imagen" id="imagenProd" value="${producto.imagen}" required>
 
-        <label for="priceProd">Precio</label>
-        <input type="number" name="price" id="priceProd" value="${producto.precio}" required>
+    <label for="categoriaProd">Categoria</label>
+    <select name="categoria" id="categoriaProd" required>
+        <option value="cajas">cajas</option>
+        <option value="skins">skins</option>
+    </select>
+
+    <label for="precioProd">Precio</label>
+    <input type="number" name="precio" id="precioProd" value="${producto.precio}" required>
 
         <!-- Aca podemos hacer la baja logica que pide el TP -->
         <label for="activeProd">Activo</label>
@@ -143,6 +148,8 @@ async function actualizarProducto(event) {
     
     // Transformamos el objeto FormData en un objeto JS, porque queremos parsear estos datos a JSON.stringify()
     const data = Object.fromEntries(formData.entries());
+    data.precio = Number(data.precio);
+    data.id = Number(data.id);
     console.log(data);
     
 
