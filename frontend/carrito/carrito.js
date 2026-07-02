@@ -65,8 +65,8 @@ function cargarProductosCarrito()
                     <td>${producto.cantidad}</td>
                     <td>$${precioUnitario}</td>
                     <td>
-                        <button class="btn-danger btn-restar-cantidad" data-id="${producto.id}">-</button>
-                        <button class="btn-danger btn-sumar-cantidad" data-id="${producto.id}">+</button>
+                        <button class="btn btn-danger btn-restar-cantidad" data-id="${producto.id}">-</button>
+                        <button class="btn btn-success btn-sumar-cantidad" data-id="${producto.id}">+</button>
                     </td>
                 </tr>
             `;
