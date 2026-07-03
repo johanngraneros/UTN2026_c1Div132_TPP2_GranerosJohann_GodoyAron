@@ -4,7 +4,7 @@
 
 import { Router } from "express";
 import { join, __dirname } from "../utils/index.js";
-import { createProductView, deleteProductView, getProductView, indexView, updateProductView, carritoView } from "../controllers/view.controllers.js";
+import { createProductView, createUserView, deleteProductView, getProductView, indexView, updateProductView, carritoView } from "../controllers/view.controllers.js";
 import { requireLogin } from "../middlewares/middlewares.js";
 
 const router = Router();
@@ -24,6 +24,10 @@ router.get("/consultar", requireLogin, getProductView);
 ////////////////////
 // Vista crear producto
 router.get("/crear", requireLogin, createProductView);
+
+////////////////////
+// Vista crear usuario admin
+router.get("/crear-usuario", requireLogin, createUserView);
 
 
 ////////////////////

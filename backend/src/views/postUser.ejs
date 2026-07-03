@@ -1,0 +1,30 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+ <main>
+
+    <h2>Crear usuario admin</h2>
+    <form id="postUser-form" class="form-alta">
+        <label for="nameUser">Nombre</label>
+        <input type="text" name="nameUser" id="nameUser" required>
+
+        <label for="emailUser">Email</label>
+        <input type="email" name="emailUser" id="emailUser" required>
+
+        <label for="passUser">Contraseña</label>
+        <input type="password" name="passUser" id="passUser" required minlength="4">
+
+        <div>
+            <input type="submit" value="Crear usuario admin">
+        </div>
+    </form>
+
+    <section class="secccion-productos">
+        <div id="contenedor-usuario"></div>
+    </section>
+
+</main>
+
+    <script src="/js/postUser.js"></script>   
+
+<%- include("partials/footer.ejs") %>

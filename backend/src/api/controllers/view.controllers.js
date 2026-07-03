@@ -49,6 +49,14 @@ export const createProductView = (req, res) => {
     });
 }
 
+////////////////////
+// Vista crear usuario
+export const createUserView = (req, res) => {
+    res.render("postUser", {
+        title: "Crear usuario admin",
+        about: "Crear usuario admin"
+    });
+}
 
 ////////////////////
 // Vista actualizar producto
