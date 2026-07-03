@@ -8,7 +8,8 @@ function obtenerCarrito()
     {
         return JSON.parse(carritoGuardado);
     }
-    // Si no existe carrito, devolvemos un array vacío
+
+    // Si no existe carrito, devolvemos un array vacio
     return [];
 }
 
@@ -17,16 +18,32 @@ function guardarCarrito(carrito)
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
+function actualizarContadorCarrito() 
+{
+    let contador = document.getElementById("contador-carrito");
+
+    if (!contador) 
+    {
+        return;
+    }
+
+    let carrito = obtenerCarrito();
+    let cantidadTotal = 0;
+
+    for (let i = 0; i < carrito.length; i++) 
+    {
+        cantidadTotal = cantidadTotal + carrito[i].cantidad;
+    }
+
+    contador.textContent = cantidadTotal;
+}
+
 function cargarProductosCarrito() 
 {
     let tabla = document.getElementById("tabla-carrito");
-
     let valorFinal = document.getElementById("valor-final");
 
-    // Obtenemos el carrito guardado en LocalStorage
     let carrito = obtenerCarrito();
-
-    //acumulador para calcular el total final
     let total = 0;
 
     tabla.innerHTML = `
@@ -38,23 +55,17 @@ function cargarProductosCarrito()
         </tr>
     `;
 
-    // Si no hay productos en el carrito, mostramos total 0 y cortamos la función
     if (carrito.length === 0) 
     {
         valorFinal.textContent = "El valor final a pagar es de: $0";
+        actualizarContadorCarrito();
         return;
     }
 
-    // Recorremos cada producto guardado en el carrito
     carrito.forEach((producto) => 
     {
         if (producto.cantidad >= 1) 
         {
-            /*
-            El precio puede venir guardado como "$6000" o como 6000.
-            Por eso lo convertimos a texto, le quitamos el signo "$"
-            y después lo pasamos a numero.
-            */
             let precioUnitario = Number(String(producto.precio).replace("$", ""));
 
             total = total + (precioUnitario * producto.cantidad);
@@ -65,8 +76,8 @@ function cargarProductosCarrito()
                     <td>${producto.cantidad}</td>
                     <td>$${precioUnitario}</td>
                     <td>
-                        <button class="btn btn-danger btn-restar-cantidad" data-id="${producto.id}">-</button>
-                        <button class="btn btn-success btn-sumar-cantidad" data-id="${producto.id}">+</button>
+                        <button class="btn-restar-cantidad" data-id="${producto.id}">-</button>
+                        <button class="btn-sumar-cantidad" data-id="${producto.id}">+</button>
                     </td>
                 </tr>
             `;
@@ -90,17 +101,16 @@ function cargarProductosCarrito()
             restarCantidad(Number(boton.dataset.id));
         });
     });
+
+    actualizarContadorCarrito();
 }
 
 function limpiarCarrito() 
 {
-    // Borramos completamente el carrito del LocalStorage
     localStorage.removeItem("carrito");
 
-    // Mostramos el mensaje pedido por la consigna
     alert("Carrito limpiado correctamente");
 
-    // Volvemos a cargar la tabla
     cargarProductosCarrito();
 }
 
@@ -172,7 +182,7 @@ async function finalizarCompra()
     let productos = carrito.map((producto) => 
     {
         return {
-            id_producto: producto.id, //id_producto: producto.id_producto
+            id_producto: producto.id,
             cantidad: producto.cantidad
         };
     });
@@ -224,7 +234,8 @@ async function finalizarCompra()
 window.addEventListener("DOMContentLoaded", () =>
 {
     cargarProductosCarrito();
+    actualizarContadorCarrito();
+
     document.querySelector(".btn-limpiar-carrito").addEventListener("click", limpiarCarrito);
     document.querySelector(".btn-finalizar-compra").addEventListener("click", finalizarCompra);
 });
-
