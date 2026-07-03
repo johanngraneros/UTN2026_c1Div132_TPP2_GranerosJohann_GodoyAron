@@ -51,7 +51,7 @@ app.use(session({
 /////////////////////
 // Endpoints
 app.get("/", (req, res) => {
-    res.send("Hola mundo");
+    res.redirect("/login");
 });
 
 //////////
