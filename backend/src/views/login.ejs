@@ -1,0 +1,47 @@
+<%- include("partials/head.ejs") %>
+
+<h2><%= about %></h2>
+
+<!-- <form id="loginForm" class="form-alta" action="/login" method="POST">
+
+    //TO DO, introducir campos REGEX para validar los datos que enviamos 
+    <label for="emailUser">Email</label>
+    <input type="email" name="email" id="emailUser" required>
+
+    <label for="passwordUser">Password</label>
+    <input type="password" name="password" id="passwordUser" required>
+
+    <div>
+        <input type="submit" value="Login">
+    </div>
+</form> -->
+
+
+<form id="loginForm" class="form-alta" action="/login" method="POST">
+  <div class="mb-3">
+    <label for="emailUser" class="form-label">Email </label>
+    <input type="email" name="email" class="form-control" id="exampleUser" aria-describedby="emailHelp" required>
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="passwordUser" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" id="passwordUser" required>
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" value="Login" class="btn btn-primary">Enviar</button>
+</form>
+
+
+
+
+<!-- Mostramos posible mensaje de error del endpoint -->
+<% if(typeof error !== "undefined") { %> 
+
+    <p class="mensaje mensaje-error"><%= error %></p>
+
+<% } %>
+
+<%- include("partials/head.ejs") %>

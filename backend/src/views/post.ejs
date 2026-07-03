@@ -1,0 +1,42 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+ <main>
+
+        
+
+    <form id="postProduct-form" class="form-alta">
+        <label for="nombreProd">Nombre</label>
+        <input type="text" name="nombre" id="nombreProd" required>
+
+        <label for="descripcionProd">Descripción</label>
+        <input type="text" name="descripcion" id="descripcionProd" required>
+
+        <label for="imagenProd">Imagen</label>
+        <input type="text" name="imagen" id="imagenProd" required>
+
+        <label for="categoriaProd">Categoria</label>
+        <select name="categoria" id="categoriaProd" required>
+            <option value="cajas">Cajas</option>
+            <option value="skins">Skins</option>
+        </select>
+
+        <label for="precioProd">Precio</label>
+        <input type="number" name="precio" id="precioProd" required>
+        
+        <div>
+            <input type="submit" value="Crear producto">
+        </div>
+    </form>
+
+    <section class="secccion-productos">
+        <div id="contenedor-productos"></div>
+    </section>
+
+</main>
+
+
+    
+    <script src="/js/post.js"></script>   
+
+<%- include("partials/footer.ejs") %>
