@@ -11,7 +11,7 @@ import { join, __dirname } from "../utils/index.js";
 export const indexView = async (req, res) => {
     try {
 
-        const [rows] = await ProductModels.selectAllProducts();
+        const [rows] = await ProductModels.selectAllProductsAdmin();
 
         res.render("index", {
             title: "Dashboard",
@@ -77,3 +77,4 @@ export const carritoView = (req, res) => {
         about: "Mi carrito"
     });
 };
+
