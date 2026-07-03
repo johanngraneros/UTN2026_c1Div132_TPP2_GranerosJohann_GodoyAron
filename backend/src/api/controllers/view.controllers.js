@@ -69,12 +69,5 @@ export const deleteProductView = (req, res) => {
     });
 }
 
-////////////////////
-// Vista carrito
-export const carritoView = (req, res) => {
-    res.render("carrito", {
-        title: "Carrito",
-        about: "Mi carrito"
-    });
-};
+
 

@@ -4,7 +4,7 @@
 
 import { Router } from "express";
 import { join, __dirname } from "../utils/index.js";
-import { createProductView, deleteProductView, getProductView, indexView, updateProductView, carritoView } from "../controllers/view.controllers.js";
+import { createProductView, deleteProductView, getProductView, indexView, updateProductView} from "../controllers/view.controllers.js";
 import { requireLogin } from "../middlewares/middlewares.js";
 
 const router = Router();
@@ -35,6 +35,6 @@ router.get("/modificar", requireLogin, updateProductView);
 // Vista eliminar producto
 router.get("/eliminar", requireLogin, deleteProductView);
 
-router.get("/carrito", requireLogin, carritoView);
+
 
 export default router;
