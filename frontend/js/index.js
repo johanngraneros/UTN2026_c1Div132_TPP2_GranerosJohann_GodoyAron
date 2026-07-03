@@ -4,6 +4,11 @@ const URL_PRODUCTOS = "http://localhost:3000/api/products";
 // Contenedores del HTML donde vamos a mostrar los productos
 const listadoCajas = document.querySelector("#listado-cajas");
 const listadoSkins = document.querySelector("#listado-skins");
+const nombreUsuario = sessionStorage.getItem("nombreUsuario");
+
+if (!nombreUsuario) {
+    window.location.href = "index.html";
+}
 
 // Array donde guardamos todos los productos para poder buscarlos
 let productosGlobales = [];
