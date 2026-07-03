@@ -31,7 +31,7 @@ const validateId = (req, res, next) => {
 
 // Middleware de ruta para validar los campos de un formulario POST
 const categoriasValidas = ["cajas", "skins"];
-const validateProduct = (req, res, next) => { //Antes de crear productos uso un middleware de validación. Valido campos requeridos, cat permitida y precio mayor a cero. Si hay errores, paro todo y mando status 400.”
+const validateProduct = (req, res, next) => { //Antes de crear productos uso un middleware de valid. Valido campos requeridos, cat permitida y precio mayor a cero. Si hay errores, paro todo y mando status 400.”
 
     // Recogemos los datos del body
     const { nombre, descripcion, imagen, precio, categoria } = req.body;
@@ -108,7 +108,7 @@ const requireLogin = (req, res, next) => {
 
 const requireLoginApi = (req, res, next) => {
     if (!req.session.user) {
-        return res.status(401).json({
+        return res.status(401).json({ // Si no existe sesion no dejamos pasar
             message: "No autorizado. Tenes que iniciar sesion"
         });
     }
