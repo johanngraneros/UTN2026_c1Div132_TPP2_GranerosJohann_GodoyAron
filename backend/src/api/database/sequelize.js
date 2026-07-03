@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
   {
     host: database.host,
     dialect: "mysql",
-    logging: true,
+    logging: false,
     define: {
       timestamps: false,
       underscored: false,
@@ -24,7 +24,7 @@ export const connectDatabase = async () => {
     await sequelize.authenticate();
     console.log(`conectados a la base de datos : ${database.name}`);
 
-    sequelize.sync({ alter : true});
+    await sequelize.sync(); //sincronizamos modelos con tablas existentes.  asi que no toca nada sin que me de cuenta :D
   } catch (error) {
     console.log(error);
     throw error;
