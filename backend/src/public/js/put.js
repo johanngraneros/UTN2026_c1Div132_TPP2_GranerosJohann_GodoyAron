@@ -112,12 +112,13 @@ async function formularioPutProducto(event, producto) {
     <label for="precioProd">Precio</label>
     <input type="number" name="precio" id="precioProd" value="${producto.precio}" required>
 
-        <!-- Aca podemos hacer la baja logica que pide el TP -->
-        <label for="activeProd">Activo</label>
-        <select name="active" id="activeProd">
-            <option value="1">activo</option>
-            <option value="0">inactivo</option>
-        </select>
+    <label for="activoProd">Activo</label>
+    <select name="activo" id="activoProd">
+        <option value="1" ${Number(producto.activo) === 1 ? "selected" : ""}>activo</option>
+        <option value="0" ${Number(producto.activo) === 0 ? "selected" : ""}>inactivo</option>
+    </select>
+
+
         
         <div>
             <input type="submit" value="Actualizar producto">
@@ -148,8 +149,9 @@ async function actualizarProducto(event) {
     
     // Transformamos el objeto FormData en un objeto JS, porque queremos parsear estos datos a JSON.stringify()
     const data = Object.fromEntries(formData.entries());
-    data.precio = Number(data.precio);
+    data.precio = Number(String(data.precio).replace(",", "."));
     data.id = Number(data.id);
+    data.activo = Number(data.activo);
     console.log(data);
     
 
