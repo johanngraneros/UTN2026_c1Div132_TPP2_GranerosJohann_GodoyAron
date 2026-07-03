@@ -125,12 +125,12 @@ const deleteProduct = async (id) => {
     //     where: { id }
     // });
     const [updatedRows] = await Product.update( //baja logica, destructuramos el array [ ] 
-     { activo: false },
+     { activo: 0 },
      { where: { id } }
  );         
-    console.log(`Producto con ID ${id} eliminado. Filas afectadas: ${deletedRows}`);
+    console.log(`Producto con ID ${id} eliminado. Filas afectadas: ${updatedRows}`);
 
-    return [{ affectedRows: deletedRows }];
+    return [{ affectedRows: updatedRows }];
 };
 
 const activateProduct = async (id) => {
