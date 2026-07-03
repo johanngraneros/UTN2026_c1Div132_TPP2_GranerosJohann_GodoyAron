@@ -131,10 +131,56 @@ const requireLoginApi = (req, res, next) => {
     next();
 };
 
+const validateSale = (req, res, next) => { 
+
+    //Validamos que venga el nombre del comprador, que total sea mayor a cero y que productos tenga al menos un elemento. desp recorro los productos con un for y valido que cada uno tenga id y cantidad.
+
+    const { nombre_usuario, precio_total, productos } = req.body;
+
+    const errores = [];
+
+    if (!nombre_usuario || typeof nombre_usuario !== "string" || nombre_usuario.trim().length < 2) {
+        errores.push("El nombre de usuario es requerido");
+    }
+
+    if (precio_total === undefined || precio_total === null || precio_total === "" || Number(precio_total) <= 0) {
+        errores.push("El precio total debe ser mayor a 0");
+    }
+
+    if (!productos || productos.length === 0) {
+        errores.push("La venta debe tener al menos un producto");
+    } else {
+        for (let i = 0; i < productos.length; i++) {
+            const producto = productos[i];
+
+            if (!producto.id_producto || Number(producto.id_producto) <= 0) {
+                errores.push("Cada producto debe tener un id_producto valido");
+            }
+
+            if (!producto.cantidad || Number(producto.cantidad) <= 0) {
+                errores.push("Cada producto debe tener una cantidad mayor a 0");
+            }
+        }
+    }
+
+    if (errores.length > 0) {
+        return res.status(400).json({
+            message: "Datos invalidos para registrar la venta",
+            errores
+        });
+    }
+
+    req.body.precio_total = Number(precio_total);
+
+    next();
+};
+
+
 export {
     loggerURL,
     validateId,
     validateProduct,
+    validateSale,
     middlewareSimpatico,
     middlewareBostero,
     requireLogin,
