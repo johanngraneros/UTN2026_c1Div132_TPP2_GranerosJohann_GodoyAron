@@ -46,30 +46,38 @@ const validateId = (req, res, next) => {
 
 // Middleware de ruta para validar los campos de un formulario POST
 const categoriasValidas = ["cajas", "skins"];
-const validateProduct = (req, res, next) => {
+const validateProduct = (req, res, next) => { //Antes de crear productos uso un middleware de validación. Valido campos requeridos, cat permitida y precio mayor a cero. Si hay errores, paro todo y mando status 400.”
 
     // Recogemos los datos del body
-    const { nombre, precio, categoria } = req.body;
+    const { nombre, descripcion, imagen, precio, categoria } = req.body;
 
     // Array vacio de errores
     const errores = [];
 
     // Validamos si se recibieron todos del body
-    if (!nombre || !categoria || !precio) {
-        errores.push("Datos invalidos, asegurate de incluir todas las categorias");
+    if (!nombre || !descripcion || !imagen ||  precio == null || precio === "" || !categoria ) {
+        errores.push("Todos los campos del producto son requeridos");
     }
 
     if (typeof nombre !== "string" || nombre.trim().length < 2) {
         errores.push("El nombre debe tener al menos 2 caracteres");
     }
 
-    if (typeof precio !== "number" || precio <= 0) {
+     if (typeof descripcion !== "string" || descripcion.trim().length < 5) {
+        errores.push("La descripcion debe tener al menos 5 caracteres");
+    }
+
+    if (typeof imagen !== "string" || imagen.trim().length < 5) {
+        errores.push("La imagen debe ser una URL o ruta valida");
+    }
+
+    if (Number(precio) <= 0) {
         errores.push("El precio debe ser un numero mayor a 0");
     }
 
-    if(!categoriasValidas.includes(categoria)) {
+    if (!categoriasValidas.includes(categoria)) {
         errores.push("Categoria invalida");
-    };
+    }
 
     // Detectamos si existe algun error en la lista y lo devolvemos en un 400
     if (errores.length > 0) {
@@ -77,6 +85,8 @@ const validateProduct = (req, res, next) => {
             message: "Datos invalidos", errores
         });
     }
+
+    req.body.precio = Number(precio);
 
     next();
 }
@@ -111,6 +121,15 @@ const requireLogin = (req, res, next) => {
     next();
 }
 
+const requireLoginApi = (req, res, next) => {
+    if (!req.session.user) {
+        return res.status(401).json({
+            message: "No autorizado. Tenes que iniciar sesion"
+        });
+    }
+
+    next();
+};
 
 export {
     loggerURL,
@@ -118,5 +137,6 @@ export {
     validateProduct,
     middlewareSimpatico,
     middlewareBostero,
-    requireLogin
+    requireLogin,
+    requireLoginApi
 }
