@@ -38,8 +38,7 @@ getProductForm.addEventListener("submit", async event => {
     } catch (error) {
         console.error("Error al obtener el producto");
 
-        // Optimizacion 5: Mostramos errores de red (en el try catch del fetch no capturamos errores 400 o 500)
-        mostrarError("Error de conexion con el servidor")
+        mostrarError("Id no encontrado")
     }
 });
 
