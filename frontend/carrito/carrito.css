@@ -29,9 +29,6 @@ header {
     background-color: var(--color-bg-secondary);
 }
 
-
-
-
 .navbar-gym .nav-link:hover {
     color: var(--color-primary);
     transform: scale(1.05);
@@ -62,54 +59,112 @@ header {
     height: 55px;
     padding-top: 15px;
 }
+
+.carrito-link {
+    position: relative;
+}
+
+#contador-carrito {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #c8b89b;
+    color: #181818;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    padding: 2px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
  
 /* --- Estilos Main (contenido) --- */
-main
-{
+main {
+    min-height: 100vh;
+    padding: 45px 20px;
     text-align: center;
-    padding: 25px;
+    color: #f5f5f5;
 }
 
-#contenedor-tabla
-{
+#contenedor-tabla {
     display: flex;
     justify-content: center;
+    margin-top: 25px;
+    overflow-x: auto;
 }
 
-.celda-header-tabla-carrito
-{
-    background-color: gray;
-    padding: 20px;
+table {
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    border-collapse: collapse;
+    width: min(700px, 100%);
 }
 
-tr
-{
-    padding: 4px;
-    background-color: black;
+.celda-header-tabla-carrito {
+    background-color: #2a2a2a;
+    color: #f1e8d0;
+    padding: 14px;
+    font-weight: bold;
+}
+
+tr {
+    background-color: #181818;
     color: white;
     text-align: center;
 }
 
-td
-{
-    padding: 3px;
+td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #333;
 }
 
-.btn-limpiar-carrito {
-    padding: 5px;
-    background-color: red;
-    border-radius: 8px;
+#tabla-carrito button,
+.btn-limpiar-carrito,
+.btn-finalizar-compra {
+    background-color: #c8b89b;
+    color: #181818;
     border: none;
-    color: white;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 6px;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
 }
 
-#valor-final
-{
-    background-color: black;    
-    color: white;
-    border-radius: 16px;
-    padding: 10px;
-    margin-top: 10px;
+#tabla-carrito button:hover,
+.btn-limpiar-carrito:hover,
+.btn-finalizar-compra:hover {
+    background-color: #e2d5bd;
+}
+
+#valor-final {
+    background-color: #1f1f1f;
+    color: #f1e8d0;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 14px;
+    margin: 20px auto 0 auto;
+    width: min(700px, 95%);
+    font-size: 22px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 30px 10px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    td,
+    .celda-header-tabla-carrito {
+        padding: 8px;
+    }
+
+    #valor-final {
+        font-size: 18px;
+    }
 }
