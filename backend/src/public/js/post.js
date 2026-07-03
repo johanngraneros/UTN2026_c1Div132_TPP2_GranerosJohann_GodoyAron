@@ -72,17 +72,6 @@ postProductForm.addEventListener("submit", async event => {
         });
 
         console.log(response);
-        /*
-        body: (...)
-        bodyUsed: true
-        headers: Headers {}
-        ok: true
-        redirected: false
-        status: 201
-        statusText: "Created"
-        type: "cors"
-        url: "http://localhost:3000/api/products/"
-        */
 
         const result = await response.json();
 

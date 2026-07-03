@@ -33,13 +33,6 @@ export const processLoginInfo = async (req, res) => {
             });            
         }
 
-
-        /*
-        // TO DO, Crearemos el modelo de usuarios
-        const sql = "SELECT * FROM users where email = ? AND password = ?";
-        const [rows] = await connection.query(sql, [email, password]);
-        */
-
         // Bcrypt 1 -> Traemos solamente el usuario por su email
         const sql = "SELECT * FROM users where email = ?";
         const [rows] = await connection.query(sql, [email]);

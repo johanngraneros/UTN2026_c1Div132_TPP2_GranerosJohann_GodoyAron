@@ -120,10 +120,6 @@ const updateProduct = async (nombre, descripcion, imagen, precio, categoria,  ac
 /////////////////////////////////
 // Eliminar producto
 const deleteProduct = async (id) => {
-    // // '.destroy()' elimina el registro y devuelve la cantidad de filas eliminadas (0 o 1).
-    // const deletedRows = await Product.destroy({
-    //     where: { id }
-    // });
     const [updatedRows] = await Product.update( //baja logica, destructuramos el array [ ] 
      { activo: 0 },
      { where: { id } }
@@ -143,8 +139,6 @@ const activateProduct = async (id) => {
 
     return [{ affectedRows: updatedRows }];
 };
-
-
 
 export default {
     selectAllProducts,

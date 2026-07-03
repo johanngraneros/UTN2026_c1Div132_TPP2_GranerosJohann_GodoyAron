@@ -10,21 +10,6 @@ const loggerURL = (req, res, next) => {
     next(); // next() da paso a que continue la respuesta o el siguiente middleware (en caso de haberlo)
 };
 
-/* 
-// Middleware para parsear JSON en las solcitudes POST y PUT
-app.use(express.json()); // sin esto, recibe como undefined
-
-Para un eventual envio nativo de datos con HTML <form>
-app.use(
-    express.urlencoded({
-        extended: true,
-        inflate: true,
-        limit: "1mb",
-        parameterLimit: 5000,
-        type: "application/x-www-form-urlencoded",
-    })
-);*/
-
 
 // Middleware de ruta (se aplica en ciertos endpoints)
 const validateId = (req, res, next) => {
