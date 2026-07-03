@@ -81,7 +81,7 @@ export const createProduct = async (req, res) => {
     
         
         // Recogemos los datos limpios del body
-        const { nombre, descripcion, imagen, categoria, precio } = req.body;
+        const {  nombre, descripcion, imagen, categoria, precio } = req.body;
 
         const [rows] = await ProductModels.insertNewProduct(nombre, descripcion, imagen, categoria, precio);
     
@@ -107,17 +107,17 @@ export const modifyProduct = async (req, res) => {
     // Optimizacion 1: Manejo de errores con try...catch
     try {
         // Gracias al middleware router.use(express.json()); ahora en lugar de un JSON, nuestro endpoint recibe un objeto
-        const { id, nombre, descripcion, imagen, precio, categoria } = req.body;
+        const { id, nombre, descripcion, imagen, precio, categoria, activo} = req.body;
 
         // Optimizacion 2: Validamos que vengan los campos necesarios antes de tocar la BBDD
-        if (!nombre || !descripcion || !imagen || !precio || !categoria ) {
+        if (!nombre || !descripcion || !imagen ||  precio == null || precio === "" || !categoria || activo == null || activo === "" ) { //== null, cubre null y undefined
             return res.status(400).json({
                 message: "Todos los campos del formulario son requeridos"
             });
         }
     
        
-        const [result] = await ProductModels.updateProduct(nombre, descripcion, imagen, precio, categoria, id);
+        const [result] = await ProductModels.updateProduct(nombre, descripcion, imagen, precio, categoria, activo, id);
         
         // Optimizacion 3: Verificamos si realmente se actualizo algo, guardando la respuesta de la BBDD
         if (result.affectedRows === 0) {
@@ -166,3 +166,4 @@ export const removeProduct = async (req, res) => {
         });
     }
 }
+
