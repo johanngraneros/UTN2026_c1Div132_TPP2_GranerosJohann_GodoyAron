@@ -78,7 +78,7 @@ const validateProduct = (req, res, next) => { //Antes de crear productos uso un 
 
 // Middleware de aplicacion (se ejecuta en todas las peticiones de la aplicacion)
 const middlewareSimpatico = (req, res, next) => {
-    console.log("Holis! Soy un middleware que te desea un buen dia por cada peticion");
+    console.log("Peticion realizada");
 
     // Sin next() nunca damos paso a la response y por tanto la peticion HTTP nunca terminó
     next();
